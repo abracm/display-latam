@@ -1,40 +1,68 @@
-# ledmat
-Arduino-based project to make a tournament display for speedcubing and speedstacking that is compatible with all major timers. Uses MAX7219 driven LED matrices as the display.
+# display-latam
+ESP32-based project to make a display for speedcubing timers.
 
-First assemble the hardware according to the schematics. A full tutorial will be up shortly. Instructions given below are for the software only.
+We seek to create an alternative to commercially available displays which is cheaper, lighter,open-source, and repairable.
 
-1. Install the [Arduino IDE](https://www.arduino.cc/en/main/software).
-2. Download the libraries [MD_Parola](https://github.com/MajicDesigns/MD_Parola) and [MD_MAX2XX](https://github.com/MajicDesigns/MD_MAX72XX) using 'Clone or download' -> 'Download ZIP'.
-3. Extract the ZIPs to get two folders called MD_Parola-master and MD_MAX72XX-master. 
-4. Move these folders to the Documents\Arduino\Libraries folder (On Windows only. more info on library installation can be found [here](https://www.arduino.cc/en/guide/libraries))
-5. Open MD_MAX72XX-master\src\MD_MAX72XX.h. If it does not display well in notepad, try wordpad.
-6. Search for USE_PAROLA_HW and replace the 1 next to it with a 0. Search for your hardware (usually USE_FC16_HW, see the full tutorial for more information) and replace the 0 next to it with a 1. Save the file and close it.
-7. Download this repository and extract the ledmat.ino file. Open it, set the board to Arduino Nano in the Tools menu. Also make sure the correct Port is selected.
-8. Upload the sketch, plug in the stackmat and enjoy!
+## How to contribute
 
-## TODOs
+Take a look at the open issues on the repository to see how you can contribute. Open an issue for a request or suggestion. You can also send an email for contato@abracm.org.br for enquries, contributions, feedback, etc.
 
-- Setup github actions to run `make all check` (Pedro)
-- Translate the JS bitstream processor into C for the arduino
-- code first prototype of working display
-- add code snipets and examples throughout timer signal protocol
-- think of a better name for the project?
-- github dirtywork - ending fork? and fixing origin on c-processor branch
+The language of the project is English to make it more accesible worldwide.
 
-### MVP for Saideira Brasília 2023
+Currently, the code is functional, but the documentation needs work, which makes it hard for communities to build their own version. The work plan is on the short medium term is:
+1. gather ideas and contributions for an Alpha release
+2. incorporate pull requests, contributions which are a short term priority
+3. prepare documentation, tutorials for the release of the Alpha version 
+4. release the Alpha version, make easily available for communities to build and test out - can we do it by the end of August/start of September?
+5. work on improvements to the Alpha version, receive feedback from users
+6. create hardware specifications for a 1.0 version release (make hardware investments future proof)
+7. release 1.0 version of project, make sure future code updates are backwards compatible with the hardware
 
-0. (André) fix lints
-1. (Pedro) finish coding processor.c
-2. (André) reading bitstream from audio jack to input into processor.c
-3. (Pedro) read result from processor.c and display in led matrix (MD_PAROLA, etc.) - we don't need to display thousands of seconds - take code from ledmat
-4. (Pedro) encasing and power (maybe powerbank) prototype for hardware
+## Features
 
-## Improvements on existing displays
+TODO 
 
-- we could show the state before the start of the attempt instead of just zeros - show when hands are on timer, when competitor is ready
-- instead of displaying 0:00.00 format from the getgo, we could start display only the three rightmost digits and add the other ones as needed while the timer keeps running
-- the Gen 5 timer has an annoying feature that, when in 2-pad mode, it switches off and on three times after the timer is stopped, which is reproduced on the display, we should try to avoid this behaviour
-- never display thousands of seconds - not used in WCA competitions
+## installation, how to build
+
+TODO 
+
+Draft schematics are as follows:
+
+![draft_schematics](doc/draft_schematics.jpg)
+
+on the TRRS jack, we use only the sleeve for GND and the tip connected to any digital pin?
+
+### Parts list
+
+- ESP32 C3 mini 
+- 4 in 1 MAX7219 LED display matrix
+- 0.91” OLED display
+- 3.5mm to 2.5mm data cable (to connect to the timer)
+- wires and solder
+
+Two alternatives for encasing the hardware: 
+
+| Materials/type | Details |
+| --- | --- |
+| 3mm polycarbonate sheet + tint for contrast + screws | cutout for CNC available on `doc/acrylic-cover.skp` |
+| 3D printed case | draft design available on `doc/draft_case.stl` (WIP) |
+
+For power, you could use:
+- Standard USBC 5v chargers plugged to a power source
+- Power banks, e.g. made using 18650 batteries and a battery case (this is usually cheaper than buying a commercial power bank)
+
+For the display stand, you could use the 3D-printed stand available on `doc/stand.stl`.
+
+Current estimates for the cost of the materials for a display are of around USD ~20 (buying supplies off China e.g. Aliexpress).
+
+## Contributors
+
+We are specially greatful to Fabio Seiji Massui [2013MASS01](https://www.worldcubeassociation.org/persons/2013MASS01) for kicking off this project and inspiring us to pursue the goal of developing an open-source and cheap alternative to commercial displays.
+
+Other contributors include:
+- jayanth-rajakumar: Original [ledmat](https://github.com/jayanth-rajakumar/ledmat) project
+- Cady Shields: 3D-printed display stand design
+- Alex Maass: 3D-printed case design
 
 ## Speedstacks timer signal protocol
 
@@ -134,18 +162,6 @@ WIP
 - Idle value: 1 (double check)
 
 *can we easily support other non-speedstacks timers? testing needed*
-
-### Hardware guide
-
-TODO
-
-on the TRRS jack, we use only the sleeve for GND and the tip connected to any digital pin 
-
-### installation, setup
-
-TODO
-
-git ls-files | entr -cs "make -j12 all check"
 
 ### Useful sources
 
