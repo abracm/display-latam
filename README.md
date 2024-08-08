@@ -1,7 +1,7 @@
 # display-latam
 ESP32-based project to make a display for speedcubing timers.
 
-We seek to create an alternative to commercially available displays which is cheaper, lighter,open-source, and repairable.
+We seek to create an alternative to commercially available displays which is cheaper, lighter,open-source, repairable, and sustainable.
 
 ## How to contribute
 
