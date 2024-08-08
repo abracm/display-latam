@@ -1,0 +1,7 @@
+/*.elf
+/*.hex
+/src/*.xo
+/src/*.o
+/src/*.to
+/src/*.ea
+/src/*.bin
