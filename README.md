@@ -30,12 +30,11 @@ TODO
 Draft preview of the project (using the acrylic covers)
 ![draft_preview](doc/preview.png)
 
-Draft schematics are as follows:
+Schematics for the ESP32 C3 mini are as follows:
 
-![draft_schematics](doc/draft_schematics.jpg)
+![schematics_esp32_c3_mini](doc/schematics_esp32_c3_mini.jpg)
 
-on the TRRS jack, we use only the sleeve for GND and the tip connected to any digital pin?
-
+Schematics for the ESP32 S2 are also available at `doc/schematics_esp32_s2.jpg`
 ### Parts list
 
 - ESP32 C3 mini (you might be able to use other ESP32s or Arduinos with code changes, testing needed)
