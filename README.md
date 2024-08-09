@@ -34,7 +34,7 @@ on the TRRS jack, we use only the sleeve for GND and the tip connected to any di
 
 ### Parts list
 
-- ESP32 C3 mini 
+- ESP32 C3 mini (you might be able to use other ESP32s or Arduinos with code changes, testing needed)
 - 4 in 1 MAX7219 LED display matrix
 - 0.91” OLED display
 - 3.5mm to 2.5mm data cable (to connect to the timer)
