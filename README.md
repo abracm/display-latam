@@ -40,7 +40,7 @@ Schematics for the ESP32 S2 are also available at `doc/schematics_esp32_s2.jpg`
 - ESP32 C3 mini (you might be able to use other ESP32s or Arduinos with code changes, testing needed)
 - 4 in 1 MAX7219 LED display matrix
 - 0.91” OLED display
-- 3.5mm female jack to bare wire
+- 3.5mm female jack to bare wire with 2 pole
 - 3.5mm to 2.5mm data cable (to connect to the timer)
 - wires and solder
 
