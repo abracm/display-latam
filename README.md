@@ -40,6 +40,7 @@ Schematics for the ESP32 S2 are also available at `doc/schematics_esp32_s2.jpg`
 - ESP32 C3 mini (you might be able to use other ESP32s or Arduinos with code changes, testing needed)
 - 4 in 1 MAX7219 LED display matrix
 - 0.91” OLED display
+- 3.5mm female jack to bare wire
 - 3.5mm to 2.5mm data cable (to connect to the timer)
 - wires and solder
 
@@ -47,7 +48,7 @@ Two alternatives for encasing the hardware:
 
 | Materials/type | Details |
 | --- | --- |
-| 3mm polycarbonate sheet + tint for contrast + screws | cutout for CNC available on `doc/acrylic-cover.skp`, see `doc/prototype_demo.skp` for demo on how to build |
+| <ul><li>3mm polycarbonate sheet</li><li>Chicago screws that are 25mm long and 5mm in diameter</li><li>Spacers of 5mm in diameter with a length according to the LED matrix you have. If the display has sockets, you need spacers four 7mm long spacers and four 10mm long ones. If the display is soldered, you need eight spacers with a length of 8.5mm.</li><li>tint for contrast</li></ul> | cutout for CNC available on `doc/acrylic-cover.skp`, see `doc/prototype_demo.skp` for demo on how to build |
 | 3D printed case | draft design available on `doc/draft_case.stl` (WIP) |
 
 For power, you could use:
