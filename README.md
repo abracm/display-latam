@@ -21,10 +21,14 @@ Currently, the code is functional, but the documentation needs work, which makes
 ## Features
 
 TODO 
+add video demo
 
 ## installation, how to build
 
 TODO 
+
+Draft preview of the project (using the acrylic covers)
+![draft_preview](doc/preview.png)
 
 Draft schematics are as follows:
 
@@ -44,7 +48,7 @@ Two alternatives for encasing the hardware:
 
 | Materials/type | Details |
 | --- | --- |
-| 3mm polycarbonate sheet + tint for contrast + screws | cutout for CNC available on `doc/acrylic-cover.skp` |
+| 3mm polycarbonate sheet + tint for contrast + screws | cutout for CNC available on `doc/acrylic-cover.skp`, see `doc/prototype_demo.skp` for demo on how to build |
 | 3D printed case | draft design available on `doc/draft_case.stl` (WIP) |
 
 For power, you could use:
