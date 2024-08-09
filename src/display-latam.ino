@@ -1,48 +1,48 @@
 #include <Arduino.h>
 
-//Bibliotecas para Oled
+//OLED Display Libraries
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-//Bibliotecas para Matriz de Led
+//Libraries for LED Matrix
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
 
-//Bibliotecas de comunicação
+//Communication Libaries
 #include <SPI.h>
 #include <Wire.h>
 #include <SoftwareSerial.h>
 
-//Biblioteca do Stackmat Timer
+//StackmatTimer Library
 #include <StackmatTimer.h>
 
-//Fonte do Oled
+//OLED Font
 #include <Fonts/FreeSans18pt7b.h>
 
-//Definições para Matriz de Led e portas de comunicação SPI
+//Define LED Matrix and SPI communication ports/pins
 #define MAX_DEVICES 4
 #define CLK_PIN 2
 #define DATA_PIN 4
 #define CS_PIN 3
 #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
 
-//Definições para portas I2C de comunicação com Oled
+//Define I2C ports/pins for OLED communication
 #define SDA_PIN 6
 #define SCL_PIN 8
 
-#define SCREEN_WIDTH 128  // OLED display largura em pixels
-#define SCREEN_HEIGHT 32  // OLED display altura em pixels
+#define SCREEN_WIDTH 128  // OLED display length in pixels
+#define SCREEN_HEIGHT 32  // OLED display height in pixels
 
 #define OLED_RESET -1
 #define OLED_ADDRESS 0x3c
 
-//#define led_ON 15 //Led onboard do S2 Mini
+//#define led_ON 15 // S2 Mini onboard LED
 
 MD_Parola P = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-//Desenho da fonte para Matriz de LED
+//Font for LED Matrix
 MD_MAX72XX::fontType_t xantofont[] PROGMEM = {
   0,                              // 0 - 'Empty Cell'
   5, 62, 91, 79, 91, 62,          // 1 - 'Sad Smiley'
@@ -302,18 +302,17 @@ MD_MAX72XX::fontType_t xantofont[] PROGMEM = {
   5, 255, 255, 255, 255, 255,     // 255 - 'Full Block'
 };
 
-char tempo[7];   //Declarando variável ´tempo´ com 7 caracteres M:SS.CC
+char tempo[7];   // Declare variable "time" with 7 characters M:SS.CC
 int minuto;
 int segundos;
 int centesimos;
 
 // *****LIB STACKMAT
 
-#define RX_PIN 20  //Pino de entrada do sinal do cronômetro
-
+#define RX_PIN 20  // Define timer signal input pin
 SoftwareSerial mySerial(RX_PIN, 255, true);
 
-// Declarando instância 'cronometro' no Stackmat
+// Declare 'chronometer' instance in StackmatTimer
 StackmatTimer cronometro(&mySerial);
 StackmatTimerState lastState;
 
@@ -323,12 +322,12 @@ void setup() {
 
   Serial.begin(19200);
 
-  P.begin();             //Inicializa Matriz de LED
-  P.setIntensity(0);     //Ajusta o brilho inicial  0
-  P.setFont(xantofont);  //Ajusta para a fonte desenhada acima
+  P.begin();             //Initialize LED Matrix
+  P.setIntensity(0);     //Sets the initial brightness to 0
+  P.setFont(xantofont);  //Set font to the xantofont defined above
 
-  Wire.begin(SDA_PIN, SCL_PIN);  //Inicializa os pinos do I2C
-  oled.begin();                  //Inicializa Oled
+  Wire.begin(SDA_PIN, SCL_PIN);  //Initialize the I2C pins
+  oled.begin();                  //Initializes OLED
 
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if (!oled.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS)) {
@@ -348,25 +347,25 @@ void setup() {
 }
 
 void loop() {
-//  digitalWrite(led_ON, HIGH); //Acendendo led da placa para mostrar que está ligado
+//  digitalWrite(led_ON, HIGH); //Turning on the board's LED to show that it is on
 
   // Update the cronometro, this will update all the fields on the cronometro like State and Time.
   cronometro.Update();
 
 
-  // assume cronometro está desconectado
+  // assume cronometro is disconected
   if (!cronometro.IsConnected()) {
     Serial.println("Cronômetro não está conectado");  //para monitorar
 
-    P.print("");          //Apresentando texto vazio na matriz de led
+    P.print("");          // Display empty text on LED matrix
 
-    //  Enviando para OLED
-    oled.clearDisplay();  //Limpando memória interna
+    // Sending to OLED
+    oled.clearDisplay();  // Clearing internal memory
     oled.display();
     delay(10);
   }
 
-  // Mudanças de estado do cronômetro
+  // Timer state is changing
   if (cronometro.GetState() != lastState) {
     switch (cronometro.GetState()) {
       case ST_Stopped:
@@ -379,10 +378,10 @@ void loop() {
         centesimos = (centesimos / 10);  //Eliminando terceira casa
         sprintf(tempo, "%01d:%02d.%02d", minuto, segundos, centesimos);
 
-        P.setIntensity(8);     //Brilho 8 quando o cronômetro parar
-        P.print(tempo);  //Apresentando na matriz de led
+        P.setIntensity(8);     //Set brightness to 8 when timer stops
+        P.print(tempo);  //Display time on LED Matrix
 
-        oled.clearDisplay();  // Apagando memória interna
+        oled.clearDisplay();  // Clearing internal Memory
         oled.setFont(&FreeSans18pt7b);
         oled.setTextSize(1);
         oled.setCursor(10, 30);
@@ -390,22 +389,22 @@ void loop() {
         oled.display();
         break;
       case ST_Reset:
-        // zerando variáveis quando o cronometro estiver zerado
+        // resetting variables when the timer is zero
         minuto = 0;
         segundos = 0;
         centesimos = 0;
         sprintf(tempo, "%01d:%02d.%02d", minuto, segundos, centesimos);
         Serial.println("cronometro está zerado");  //para monitorar
 
-        P.setIntensity(0);      //Brilho baixo quando zerado
+        P.setIntensity(0);      //Set brightness to 0 when timer reset
         P.print(tempo);  //Apresentando na matriz de led
 
-        oled.clearDisplay();  //Apagando memória interna
+        oled.clearDisplay();  // Clearing internal memory
         oled.setFont(&FreeSans18pt7b);
         oled.setTextSize(1);
         oled.setCursor(10, 30);
         oled.print("0:00.00");
-        oled.display();       //Apresentando no oled
+        oled.display();       //Displaying on OLED
         break;
       case ST_Running:
         Serial.println("GO!");
@@ -421,7 +420,7 @@ void loop() {
         break;
       case ST_ReadyToStart:
         Serial.println("Pronto!");
-        P.setIntensity(2);    //Ajustando o brilho para médio quando acender a luz verde        
+        P.setIntensity(2);    //Set brightness to medium when green light comes on        
         break;
       default:
         Serial.println("Unknown state!");
@@ -430,24 +429,24 @@ void loop() {
     }
   }
 
-  // Mostrar o tempo quando o cronômetro estiver correndo
+  // Show time when timer is running
   if (cronometro.GetState() == ST_Running) {
     minuto = cronometro.GetInterpolatedDisplayMinutes();
     segundos = cronometro.GetInterpolatedDisplaySeconds();
     centesimos = cronometro.GetInterpolatedDisplayMilliseconds();
-    centesimos = (centesimos / 10);          //Eliminando terceira casa decimal
-    sprintf(tempo, "%01d:%02d.%02d", minuto, segundos, centesimos);  //formatando dados para relógio
+    centesimos = (centesimos / 10);          // Delete third decimal place
+    sprintf(tempo, "%01d:%02d.%02d", minuto, segundos, centesimos);  // Format time data for timer
     Serial.println(tempo);          //para monitorar
 
-    P.setIntensity(5);      //Brilho médio quando o cronômetro estiver correndo
-    P.print(tempo);  //Apresentando na matriz de led
+    P.setIntensity(5);      //Medium brightness when timer is running
+    P.print(tempo);  // Display time on LED matrix
 
-    oled.clearDisplay();  //Apagando memória interna
+    oled.clearDisplay();  //Clearing internal Memory
     oled.setFont(&FreeSans18pt7b);
     oled.setTextSize(1);
     oled.setCursor(10, 30);
     oled.println(tempo);
-    oled.display();       //Apresentando no oled
+    oled.display();       // Display on OLED
   }
 
   lastState = cronometro.GetState();
