@@ -23,6 +23,9 @@ Currently, the code is functional, but the documentation needs work, which makes
 TODO 
 add video demo
 
+## Libraries setup
+From Libs.zip, extrac Libs folder and copy it's contents to your Arduino/Libraries directory.
+
 ## installation, how to build
 
 TODO 
