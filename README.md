@@ -9,6 +9,11 @@ Take a look at the open issues on the repository to see how you can contribute. 
 
 The language of the project is English to make it more accesible worldwide.
 
+Please stick to the following best practices when contributing to this project:
+- Open a new branch and a pull request (PR) whenever you want to change the code or documentation
+- Make sure to provide enough details about the changes in your PR so other contributors can easily understand them  
+- Always wait for at least one approving review before merging the PR
+
 Currently, the code is functional, but the documentation needs work, which makes it hard for communities to build their own version. The work plan is on the short medium term is:
 1. gather ideas and contributions for an Alpha release
 2. incorporate pull requests, contributions which are a short term priority
