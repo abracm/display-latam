@@ -54,7 +54,7 @@ void loop() {
   if (!cronometro.IsConnected()) {
     Serial.println("Timer is not connected");
     clearAndUpdateOLED("0:00.00");
-    LED_DISPLAY.setIntensity(RUNNING_BRIGHTNESS);
+    LED_DISPLAY.setIntensity(RESET_BRIGHTNESS);
     LED_DISPLAY.print(display_time);
     delay(1000);
     return;
@@ -130,7 +130,7 @@ void handleStateChange(StackmatTimerState state) {
       break;
     case ST_ReadyToStart:
       Serial.println("Ready to start!");
-      LED_DISPLAY.setIntensity(2);
+      LED_DISPLAY.setIntensity(RESET_BRIGHTNESS);
       break;
     default:
       Serial.println("Unknown state!");
