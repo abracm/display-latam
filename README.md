@@ -9,6 +9,11 @@ Take a look at the open issues on the repository to see how you can contribute. 
 
 The language of the project is English to make it more accesible worldwide.
 
+Please stick to the following best practices when contributing to this project:
+- Open a new branch and a pull request (PR) whenever you want to change the code or documentation
+- Make sure to provide enough details about the changes in your PR so other contributors can easily understand them  
+- Always wait for at least one approving review before merging the PR
+
 Currently, the code is functional, but the documentation needs work, which makes it hard for communities to build their own version. The work plan is on the short medium term is:
 1. gather ideas and contributions for an Alpha release
 2. incorporate pull requests, contributions which are a short term priority
@@ -22,6 +27,27 @@ Currently, the code is functional, but the documentation needs work, which makes
 
 TODO 
 add video demo
+
+## Libraries setup
+From Libs.zip, extrac Libs folder and copy it's contents to your Arduino/Libraries directory.
+
+## Software Installation guide
+Software Installation guide:
+
+1. Install the Arduino IDE software from https://www.arduino.cc/en/software 
+2. It should create a folder named “Arduino” in Documents, you want to create 2 folders, “display-latam”, and “Libraries”.
+3. Download the Libs.zip file from the GitHub, extract the zip file, and then place all of the folders in the zip file to the “Libraries” folder.
+![image](https://github.com/user-attachments/assets/41f2d2a0-ce3c-4eb7-a822-62e10601a0d0)
+4. Place the “display-latam.ino”, “xantofont.cpp”, and “xantofont.h” files in the “display_latam folder.
+![image](https://github.com/user-attachments/assets/cf1c5b7e-da0f-4cb0-a8d0-830775a27258)
+5. Click on the display-latam.ino file to open it up in Arduino IDE. 
+6. Connect your board to your computer with USB, the official Arduino website has more detailed instructions on this. I actually had a lot of trouble with this initially, my solution was to just try every USB port until one worked. https://support.arduino.cc/hc/en-us/articles/4406856349970-Select-board-and-port-in-Arduino-IDE 
+7. Press the upload button and wait for it to upload. You also need to use a USB cable that is capable of transmitting data (some USB cables have power only) or it will not be able to upload. 
+
+![image](https://github.com/user-attachments/assets/97e1ef6b-84de-4b39-b248-d5ad4b5b56fc)
+
+8. It should finish uploading successfully and the console should look like this when it is finished. The display should be ready for usage now.
+![image](https://github.com/user-attachments/assets/2f3cd0ca-e58f-42a7-b45d-ed53676c3f85)
 
 ## installation, how to build
 
