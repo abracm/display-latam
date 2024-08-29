@@ -1,50 +1,21 @@
 #include <Arduino.h>
-
-// OLED Display Libraries
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-
-// Libraries for LED Matrix
 #include <MD_Parola.h>
 #include <MD_MAX72xx.h>
-
-// Communication Libraries
 #include <SPI.h>
 #include <Wire.h>
 #include <SoftwareSerial.h>
-
-// StackmatTimer Library
 #include <StackmatTimer.h>
-
-// OLED Font
 #include <Fonts/FreeSans18pt7b.h>
+#include "xantofont.h"
+#include "config.h"
 
-// Define constants
-#define MAX_DEVICES 4
-#define CLK_PIN 2
-#define DATA_PIN 4
-#define CS_PIN 3
 #define HARDWARE_TYPE MD_MAX72XX::FC16_HW
-#define SDA_PIN 6
-#define SCL_PIN 8
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 32
-#define OLED_RESET -1
-#define OLED_ADDRESS 0x3c
-#define INITIAL_BRIGHTNESS 0
-#define RESET_BRIGHTNESS 0
-#define RUNNING_BRIGHTNESS 5
-#define STOPPED_BRIGHTNESS 8
-#define RX_PIN 20
-
-const float OLED_TEXT_SIZE = 1;
-const int INITIAL_OLED_X = 10;
-const int INITIAL_OLED_Y = 30;
 
 MD_Parola LED_DISPLAY = MD_Parola(HARDWARE_TYPE, DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-#include "xantofont.h"
 
 char display_time[7]; // Time format M:SS.CC
 int minutes;
@@ -83,7 +54,7 @@ void loop() {
   if (!cronometro.IsConnected()) {
     Serial.println("Timer is not connected");
     clearAndUpdateOLED("0:00.00");
-    LED_DISPLAY.setIntensity(RUNNING_BRIGHTNESS);
+    LED_DISPLAY.setIntensity(RESET_BRIGHTNESS);
     LED_DISPLAY.print(display_time);
     delay(1000);
     return;
@@ -159,7 +130,7 @@ void handleStateChange(StackmatTimerState state) {
       break;
     case ST_ReadyToStart:
       Serial.println("Ready to start!");
-      LED_DISPLAY.setIntensity(2);
+      LED_DISPLAY.setIntensity(RESET_BRIGHTNESS);
       break;
     default:
       Serial.println("Unknown state!");
